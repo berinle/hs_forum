@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+group = "forum"
+version = "1.0"
+
+repositories {
+    flatDir dirs:['lib']
+mavenCentral()
+mavenRepo urls:"http://repository.jboss.org/nexus/content/groups/public-jboss/"
+}
+
+task init << {
+sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+}
+
+
+dependencies {
+	compile "org.hibernate:hibernate-search:3.3.0.Final"
+	compile "log4j:log4j:1.2.16@jar"
+    compile "org.slf4j:slf4j-log4j12:1.6.1@jar"
+	compile "javassist:javassist:3.4.GA@jar"
+    compile 'hsqldb:hsqldb:1.8.0.10'
+
+    //groovy sdk
+    compile 'org.codehaus.groovy:groovy:1.7.7'
+    runtime 'commons-cli:commons-cli:1.2'
+}

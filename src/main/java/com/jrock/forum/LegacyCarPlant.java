@@ -1,5 +1,6 @@
 package com.jrock.forum;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
@@ -22,7 +23,8 @@ public class LegacyCarPlant {
     private String name;
 
     @IndexedEmbedded
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL) //cascade "all" as tempoary fix for jira issue HSEARCH-689
+    @Cascade(org.hibernate.annotations.CascadeType.LOCK) //cascade "all" as tempoary fix for jira issue HSEARCH-689
     @JoinColumn(name="CAR_ID", insertable = false, updatable = false)
     private LegacyCar car;
 
